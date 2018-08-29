@@ -1,0 +1,17 @@
+---
+title: "Test"
+author: "Suraj Bhattarai"
+date: "August 29, 2018"
+output: html_document
+---
+
+# My homeworks
+
+### Hw1
+
+* first item
+* second item
+
+* [Homework 1](testhw.html)
+
+* [Wikipedia](http://www.wikipedia.org)
