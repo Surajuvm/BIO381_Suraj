@@ -1,8 +1,11 @@
 ---
-title: "Test"
+title: "Computational Biology Homeworks"
 author: "Suraj Bhattarai"
 date: "August 29, 2018"
-output: html_document
+output:  
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
 ---
 
 # My homeworks
@@ -15,3 +18,8 @@ output: html_document
 * [Homework 1](testhw.html)
 
 * [Wikipedia](http://www.wikipedia.org)
+
+**fun-fact**
+
+* [pretty web](pretty.html)
+
