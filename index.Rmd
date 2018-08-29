@@ -12,14 +12,12 @@ output:
 
 ### Hw1
 
-* first item
-* second item
 
 * [Homework 1](testhw.html)
 
 * [Wikipedia](http://www.wikipedia.org)
 
-**fun-fact**
+**fun-fact** 
 
-* [pretty web](pretty.html)
+* [click here](click here.html)
 

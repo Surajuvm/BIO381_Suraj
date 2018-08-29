@@ -1,0 +1,13 @@
+---
+title: "Creating a fancy webpage"
+author: "Suraj Bhattarai"
+date: "`August 29, 2018`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+---
+
+## **Can't remember a single fun fact, will update in future.**
+
+
