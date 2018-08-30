@@ -17,7 +17,7 @@ output:
 
 * [Wikipedia](http://www.wikipedia.org)
 
-**fun-fact** 
+**fun-facts** 
 
 * [click here](click_here.html)
 
