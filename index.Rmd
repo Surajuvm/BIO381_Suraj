@@ -17,7 +17,14 @@ output:
 
 * [Wikipedia](http://www.wikipedia.org)
 
-**fun-facts** 
+ [fun-facts](click_here.html)
 
-* [click here](click_here.html)
+
+
+* [My GitHub Repository](https://github.com/Surajuvm/BIO381_Suraj)
+
+
+
+
+
 
