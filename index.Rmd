@@ -23,6 +23,11 @@ output:
 
 * [My GitHub Repository](https://github.com/Surajuvm/BIO381_Suraj)
 
+### Hw2
+[click here](Hw2_Hypothesis.html)
+
+
+
 
 
 

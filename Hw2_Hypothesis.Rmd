@@ -1,0 +1,14 @@
+---
+title: "Homework 2"
+author: "Suraj Bhattarai"
+date: "September 5, 2018"
+output: html_document
+---
+
+
+
+Hypothesis: 
+Soil bacteria degrading feather wastes can be isolated from feather dumped soil and characterized. 
+
+
+![logictree](flowchart.png)

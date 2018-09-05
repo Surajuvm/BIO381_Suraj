@@ -1,0 +1,14 @@
+---
+title: "Lectures"
+author: "Suraj Bhattarai"
+date: "September 4, 2018"
+output: html_document
+---
+
+Lecture 3: RStudio
+
+Plain text files
+- non proportional fonts
+
+.Rmd file is a format which could be later changed into other types. .rmd file has a intermediate file type called .md file which then can be saved as .pdf, .html, or even .docx files.
+
