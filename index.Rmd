@@ -27,6 +27,10 @@ output:
 [click here](Hw2_Hypothesis.html)
 
 
+### Hw3
+[Beamer slides](beamer_slides.pdf)
+
+
 
 
 

@@ -1,0 +1,79 @@
+---
+title: "Animals in Research"
+author: "Suraj Bhattarai"
+date: "September 12, 2018"
+output: 
+  beamer_presentation: 
+    colortheme: orchid
+    fonttheme: professionalfonts
+    theme: Berlin
+---
+
+## Objectives
+
+> - To acquait with the protocol for using live animals at UVM
+> - To get the students thinking about animals used for research and what it means to them.
+> - To understand the difference between scholarly (peer-reviewed) journal articles and popular press articles.
+
+## Using bigskip 
+
+For ... 
+
+\bigskip   
+\bigskip   
+\bigskip   
+
+Emphasis
+
+## Animal Handling
+
+
+ \begin{picture}(240,170)
+ \put(100,80){\includegraphics[height=3cm]{animal.jpg}}
+ \put(0,100){\begin{minipage}[t]{2\linewidth}
+
+\textbf{Equine}
+ 
+ \begin{itemize}
+ 
+\item Prey Animal
+ 
+ \item Approach from front or left side
+ 
+ \item Flight zone
+ 
+ \item Point of balance
+
+\end{itemize} 
+\end{minipage}}
+ \end{picture}
+ 
+ ## Whale Watching in Boston
+ 
+ \begin{picture}(240,170)
+ \put(50,50){\includegraphics[height=4cm]{cruise_boston.jpg}}
+ \put(20,35){\begin{minipage}[t]{1\linewidth}
+ {Quality time spent with my lady love, \color{red} Ashma $<3$}
+ \end{minipage}}
+ \end{picture}
+ 
+ ## Epitome of elegance 
+ 
+  
+ \begin{picture}(240,170)
+ \put(50,50){\includegraphics[height=4cm]{IMG_0688.jpg}}
+ \put(60,35){\begin{minipage}[t]{1\linewidth}
+ \color{purple} {Magical \textit {Ashma} in classical attire}
+ \end{minipage}}
+ \end{picture}
+ 
+ ## Made for each other 
+ 
+  \begin{picture}(320,250)
+ \put(50,50){\includegraphics[height=6cm]{pukufuku.jpg}}
+ \put(70,80){\begin{minipage}[t]{1\linewidth}
+ \color{blue} {A beautiful \emph {serendipity!}}
+ \end{minipage}}
+ \end{picture}
+ 
+ 
