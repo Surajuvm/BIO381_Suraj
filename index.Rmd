@@ -30,6 +30,9 @@ output:
 ### Hw3
 [Beamer slides](beamer_slides.pdf)
 
+### Hw4
+[Vector & Regular Expressions](VectorsRegularExpressions.html)
+
 
 
 

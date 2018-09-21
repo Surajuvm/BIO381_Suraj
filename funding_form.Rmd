@@ -1,0 +1,34 @@
+---
+title: "fundingForm"
+author: "Suraj Bhattarai"
+date: "September 14, 2018"
+output: html_document
+---
+
+**ASCI Graduate Student Supplemental Funding**
+The ASCI Department has a $200 maximum award per person. A graduate student requesting funding from the ASCI Department must:
+
+* currently be a full-time graduate student in the College of Agriculture and Life Sciences
+* have an accompanying invitation to speak or present at an annual society
+* include a copy of the abstract for the research being presented
+* have at least a 100% match by the principle investigator.
+
+Request for reimbursement of travel expenses must be submitted within twenty business days after return from a trip. All travelers are responsible for understanding and complying with the Travel Policy. http://www.uvm.edu/policies/travel/travel.pdf
+
+NAME ______________________STUDENT ID# _______________ YEAR ______
+PHONE ________________________E-MAIL _____________________________
+Please list:
+> Location of meeting ______________________________________________
+> Date of presentation _______________________________________________
+> Title of Presentation ______________________________________________
+> Description of presentation (abstract, etc.) ______________________________________________
+1) Please describe the reason for the funding request. Include details about the event and its relevance to your research. Be specific as to how any funding you might receive will be used.
+2) What other sources of funding have you explored to finance this project or event?
+3) Principle Investigator’s chart string;
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+*Any request for supplemental funding to the Chair’s Office should be made at least two weeks in advance of the event. Documentation of expenses after-the-fact will be required. Each request will be considered on a case-by-case basis. The Chair requests both your signature and the signature of your graduate advisor, verifying that the information provided on this request is truthful and accurate to the best of your knowledge.
+______________________			________________________
+Student’s signature 					Advisor’s signature
+______________________			 ______________________________
+Date 							Date
+
