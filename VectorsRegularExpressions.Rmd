@@ -76,11 +76,9 @@ which(queueAph == "Aphid") # it gives the position of Aphid in the vector
 
 ## 5. Creating a vector
 ```{R}
-VectorA <- seq(from=1, to=100, by=1)
-
-
-
-
+A <- seq(from=1, to=100, by=1)
+B <- A [!(!A%%2) + (!A%%3) + (!A%%7)]
+print(B)
 ```
 ## 6. Regular expression for text editing
 

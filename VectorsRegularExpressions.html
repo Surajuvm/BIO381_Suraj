@@ -170,9 +170,9 @@ y &lt;- Rnum[2] # assigning second random number as y
 PCr &lt;- sqrt(x^2+y^2) # polar coordinate r 
 ACTheta &lt;- atan(y/x) # angular coordinate theta
 print(PCr)</code></pre>
-<pre><code>## [1] 0.537863</code></pre>
+<pre><code>## [1] 0.9372893</code></pre>
 <pre class="r"><code>print(ACTheta)</code></pre>
-<pre><code>## [1] 1.35798</code></pre>
+<pre><code>## [1] 0.9680116</code></pre>
 </div>
 <div id="manipulating-a-vector" class="section level2">
 <h2>4. Manipulating a vector</h2>
@@ -200,7 +200,11 @@ print(queueAph)</code></pre>
 </div>
 <div id="creating-a-vector" class="section level2">
 <h2>5. Creating a vector</h2>
-<pre class="r"><code>VectorA &lt;- seq(from=1, to=100, by=1)</code></pre>
+<pre class="r"><code>A &lt;- seq(from=1, to=100, by=1)
+B &lt;- A [!(!A%%2) + (!A%%3) + (!A%%7)]
+print(B)</code></pre>
+<pre><code>##  [1]  1  5 11 13 17 19 23 25 29 31 37 41 43 47 53 55 59 61 65 67 71 73 79
+## [24] 83 85 89 95 97</code></pre>
 </div>
 <div id="regular-expression-for-text-editing" class="section level2">
 <h2>6. Regular expression for text editing</h2>
