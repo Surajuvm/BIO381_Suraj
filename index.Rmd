@@ -33,6 +33,12 @@ output:
 ### Hw4
 [Vector & Regular Expressions](VectorsRegularExpressions.html)
 
+### Hw5
+[Manipulating data with dplyr Package](dplyrPackage.html)
+
+
+
+
 
 
 
