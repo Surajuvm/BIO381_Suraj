@@ -25,6 +25,12 @@ iris1 <- filter(iris, Species %in% c("versicolor", "virginica"), Sepal.Length > 
 head(iris1)
 dim(iris1)
 ```
+```{r}
+iris11 <- filter(iris, Species == c("versicolor", "virginica"), Sepal.Length > 6, Sepal.Width > 2.5)
+dim(iris11)
+
+filter(iris, Species == "versicolor" | Species == "virginica", Sepal.Length > 6, Sepal.Width > 2.5)
+```
 
 ### Answer 2. There are 56 observations in the new dataset iris1 containing only versicolor and virginica species of sepal length larger than 6cm and sepal width larger than 2.5 cm.
 

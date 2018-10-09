@@ -36,6 +36,8 @@ output:
 ### Hw5
 [Manipulating data with dplyr Package](dplyrPackage.html)
 
+### Hw6
+[Simulating & Fitting data](DataSimulation.html)
 
 
 

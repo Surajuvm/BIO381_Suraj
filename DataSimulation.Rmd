@@ -1,0 +1,131 @@
+---
+title: "Data Formats and Simulating & Fitting Data"
+author: "Suraj Bhattarai"
+date: "October 3, 2018"
+output: html_document
+---
+
+### Conversion of long and wide data formats
+
+```{r, echo=TRUE, eval=F}
+library(tidyverse)
+data(iris)
+longDat <- iris %>%
+  gather(Sepal.Length:Petal.Width, key = "trait", value = "Response") %>%
+  arrange(Species)
+
+longDat1 <- gather(iris, Sepal.Length:Petal.Width, key = "trait", value = "Response")
+View(longDat1) # without using pipe
+
+
+SpTraitMean <- longDat1 %>%
+  group_by(Species, trait) %>% # this will group by combining species and trait
+  summarise(Avg = mean(Response)) # will give mean of each group 
+
+View(SpTraitMean)
+
+```
+
+### Simulating and Fitting Data Distributions
+
+```{r}
+library(ggplot2) # for graphics
+library(MASS) # for maximum likelihood estimation
+```
+
+```{r} 
+# quick and dirty, a truncated normal distribution to work on the solution set
+
+z <- rnorm(n=3000,mean=0.2) # creates a random uniform distribution of 3000 variables with a mean of 0.2
+z <- data.frame(1:3000,z) # a data frame is created with 1st column 1 to 3000, and second column containing each values made in previous step
+names(z) <- list("ID","myVar") # name given to each column
+z <- z[z$myVar>0,] # take only whose values are greater than 0, basically variables containing 0 and negative numbers are left out
+str(z) 
+summary(z$myVar) # gives mean, median etc of distribution
+```
+
+### Plotting Data
+
+* histogram 
+
+```{r}
+p1 <- ggplot(data=z, aes(x=myVar, y=..density..)) +
+  geom_histogram(color="grey60",fill="cornsilk",size=0.2) 
+print(p1)
+```
+
+* add density curve
+```{r}
+p1 <-  p1 +  geom_density(linetype="dotted",size=0.75)
+print(p1)
+```
+
+* maximum likelihood parameters for normal distribution
+
+```{r}
+normPars <- fitdistr(z$myVar,"normal")
+print(normPars)
+str(normPars)
+normPars$estimate["mean"] # note structure of getting a named attribute
+```
+
+* plot normal probability density
+
+```{r}
+meanML <- normPars$estimate["mean"]
+sdML <- normPars$estimate["sd"]
+
+xval <- seq(0,max(z$myVar),len=length(z$myVar))
+
+ stat <- stat_function(aes(x = xval, y = ..y..), fun = dnorm, colour="red", n = length(z$myVar), args = list(mean = meanML, sd = sdML))
+ p1 + stat
+
+```
+
+* plot exponential probability density
+
+```{r}
+expoPars <- fitdistr(z$myVar,"exponential")
+rateML <- expoPars$estimate["rate"]
+
+stat2 <- stat_function(aes(x = xval, y = ..y..), fun = dexp, colour="blue", n = length(z$myVar), args = list(rate=rateML))
+ p1 + stat + stat2
+```
+
+* plot uniform probability density
+
+```{r}
+stat3 <- stat_function(aes(x = xval, y = ..y..), fun = dunif, colour="darkgreen", n = length(z$myVar), args = list(min=min(z$myVar), max=max(z$myVar)))
+ p1 + stat + stat2 + stat3
+
+```
+* plot gamma probability density
+
+```{r}
+gammaPars <- fitdistr(z$myVar,"gamma")
+shapeML <- gammaPars$estimate["shape"]
+rateML <- gammaPars$estimate["rate"]
+
+stat4 <- stat_function(aes(x = xval, y = ..y..), fun = dgamma, colour="brown", n = length(z$myVar), args = list(shape=shapeML, rate=rateML))
+ p1 + stat + stat2 + stat3 + stat4
+
+```
+* plot beta probability density
+
+```{r}
+pSpecial <- ggplot(data=z, aes(x=myVar/(max(myVar + 0.1)), y=..density..)) +
+  geom_histogram(color="grey60",fill="cornsilk",size=0.2) + 
+  xlim(c(0,1)) +
+  geom_density(size=0.75,linetype="dotted")
+
+betaPars <- fitdistr(x=z$myVar/max(z$myVar + 0.1),start=list(shape1=1,shape2=2),"beta")
+shape1ML <- betaPars$estimate["shape1"]
+shape2ML <- betaPars$estimate["shape2"]
+
+statSpecial <- stat_function(aes(x = xval, y = ..y..), fun = dbeta, colour="orchid", n = length(z$myVar), args = list(shape1=shape1ML,shape2=shape2ML))
+pSpecial + statSpecial
+
+```
+
+
+
