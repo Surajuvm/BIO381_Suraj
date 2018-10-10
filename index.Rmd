@@ -39,6 +39,10 @@ output:
 ### Hw6
 [Simulating & Fitting data](DataSimulation.html)
 
+### Hw7
+[Creating fake data sets to explore hypotheses](FakeDatasetHypoTest.html)
+
+
 
 
 

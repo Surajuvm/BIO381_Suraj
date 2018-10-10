@@ -1,0 +1,66 @@
+---
+title: "Creating Fake Dataset to Test Hypotheses"
+author: "Suraj Bhattarai"
+date: "October 10, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Hypothesis: 
+A phytochemical extract from *Ashmarani bhatensis* can cure multidrug resistant tuberculosis. 
+
+### Experimental approach: 
+multi drug resistant (MDR) *Mycobacterium tuberculosis* were cultured in broth in five different tubes. First tube was left untreated representing negative control, 2nd tube was treated with 5micrograms of *Ashmarani bhatensis* extract, 3rd tube was treated with 50 micrograms of extract, 4th tube was treated with 500micrograms of the extract and 5th tube was treated with commercial antibiotics currently prescribed to manage MDR-TB acting as a positive control. The tubes were incubated for 48 hours at 30^0^C. After incubation period, the samples were cultured in agar plates and their colony forming units were calculated. The number of viable colonies for each group are represented below. For each group, 10 tubes were used to meet sufficient power for statistical analysis following the **rule of ten** suggested by Prof. Gotelli. 
+
+```{r}
+# Creating a fake data
+nGroup <- 5
+nName <- c("NegControl", "Treatment5", "Treatment50", "Treatment500", "PosControl")
+nSize <- c(10,10,10,10,10)
+nMean <- c(90,85,30,25,20)
+nSD <- c(15,10,10,12,5)
+ID <- seq(from=1, to=sum(nSize), by=1)
+```
+
+```{r}
+CFU <- c(rnorm(n=nSize[1], mean = nMean[1], sd = nSD[1]),
+            rnorm(n=nSize[2], mean = nMean[2], sd = nSD[2]),
+            rnorm(n=nSize[3], mean = nMean[3], sd = nSD[3]),
+            rnorm(n=nSize[4], mean = nMean[4], sd = nSD[4]),
+            rnorm(n=nSize[5], mean = nMean[5], sd = nSD[5]))
+
+TGroup <- rep(nName,nSize) # repeates nName by nSize times
+table(TGroup)
+TGroup <- factor(TGroup, levels=c("NegControl", "Treatment5", "Treatment50", "Treatment500", "PosControl"))
+AnoData <- data.frame(ID, TGroup, CFU)
+```
+### Running ANOVA model
+
+```{r}
+AnoModel <- aov(CFU~TGroup, data = AnoData)
+summary(AnoModel)
+```
+
+### Plotting ANOVA data
+```{r}
+library(tidyverse)
+
+AnoPlot <- ggplot(data = AnoData, 
+                  aes(x=TGroup, y=CFU,
+                      fill=TGroup)) +
+  geom_boxplot()
+print(AnoPlot)
+# when I made the plot, the variables in the x axis were kept in alphabetical order. In order to reorder them, I did factor(Tgroup, levels) as suggested by Lauren. 
+
+Tukey <- TukeyHSD(AnoModel, conf.level = 0.95)
+print(Tukey)
+# Tukey test showed that Treatment50, Treatment500 and PosControl samples were all significantly different than NegControl and Treatment5 samples. 
+```
+### Conclusion
+
+The phytochemical extract from *Ashmarani bhatensis* is effective against multi-drug resistant *Mycobacterium tuberculosis* at a concentration higher than 50micrograms/ml. The efficiency of this extract at this concentration is comparable to that of commercial used antibiotics. However, the extract is not effective at the concentration of 5micrograms/ml. 
+
+
