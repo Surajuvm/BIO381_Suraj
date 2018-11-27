@@ -1,0 +1,247 @@
+---
+title: "ggtree"
+author: "Suraj Bhattarai"
+date: "November 27, 2018"
+output: html_document
+---
+
+---
+title: "ggtree"
+author: "Suraj Bhattarai"
+date: "November 19, 2018"
+output: html_document
+---
+
+## INTRODUCTION
+R package for visualization and annotations of phylogenetic trees 
+
+* Designed by extending the *ggplot2*. 
+* Other R packages that implement tree viewer using *ggplot2* are **OutbreakTools**, **phyloseq** and **ggphylo**. 
+* These packages interpret phylogenetic as a collection of lines, which makes it hard to annotate diverse user input that are related to node (taxa). 
+* The *ggtree* is different to them by interpreting a tree as a collection of taxa and allowing general flexibilities of annotating phylogenetic tree with diverse types of user inputs. 
+
+```{R}
+library(ggtree)
+library(ggplot2)
+#library(treeio)
+```
+
+To view a phylogenetic tree, we first need to parse the tree file into R. The ggtree (Yu et al. 2017) package supports many file formats via the treeio package, including output files of commonly used software packages in evolutionary biology.
+ 
+## TREE VISUALIZATION
+
+```{R}
+set.seed(11282018)
+tree <- rtree(50)
+ggtree(tree)
+```
+
+can use ggplot2 by implementing a geom_tree layer 
+
+```{R}
+ggplot(tree, aes(x, y)) + geom_tree() + theme_tree()
+```
+
+### Tree layout
+
+Rectangular (by default)
+slanted
+circular
+fan
+
+Phylogram and Cladogram (in phylogram branch length represents time)
+
+```{R}
+ggtree(tree, layout="slanted") # phylogram
+ggtree(tree, layout="circular") # phylogram
+ggtree(tree, layout="fan", open.angle=120) # phylogram
+ggtree(tree, layout="equal_angle") # unrooted
+ggtree(tree, layout="daylight") # unrooted
+ggtree(tree, branch.length='none') # rectangular cladogram
+ggtree(tree, branch.length='none', layout='circular') # circular cladogram
+ggtree(tree, layout="daylight", branch.length='none') # daylight cladogram
+```
+
+Displaying tree scale (evolution distance) using geom_treescale layer
+```{R}
+ggtree(tree) + geom_treescale()
+```
+
+### Parameters in geom_treescale
+* x and y for tree scale position
+* width for the length of the tree scale
+* fontsize for the size of the text
+* linesize for the size of the line
+* offset for relative position of the line and the text
+* color for color of the tree scale
+
+```{R}
+ggtree(tree) + geom_treescale(x=0, y=12, width=6, color='red')
+#ggtree(tree) + geom_treescale(x=0, y=0, width=4, color='red')
+ggtree(tree) + geom_treescale(fontsize=8, linesize=2, offset=-1)
+```
+
+###Displaying nodes/ tips
+
+```{R}
+# use geom_nodepoint, geom_tippoint or geom_point
+
+ggtree(tree) + geom_point(aes(shape=isTip, color=isTip), size=3)
+
+p <- ggtree(tree) + geom_nodepoint(color="#b5e521", alpha=1/4, size=10)
+p + geom_tippoint(color="#FDAC4F", shape=8, size=3)
+```
+
+### For circular and unrooted layout, ggtree supports rotating node labels according to the angles of the branches.
+```{R}
+ggtree(tree, layout="circular") + geom_tiplab(aes(angle=angle), color='blue')
+```
+
+### themes
+```{R}
+ggtree(rtree(30), color="red") + theme_tree("steelblue")
+ggtree(rtree(20), color="white") + theme_tree("black")
+```
+
+### list of trees using multiPhylo; load ggplot2 for facet_wrap
+```{R}
+trees <- lapply(c(10, 20, 40), rtree)
+class(trees) <- "multiPhylo"
+ggtree(trees) + facet_wrap(~.id, scale="free") + geom_tiplab()
+```
+
+### zoom on a portion of a tree
+```{R}
+library("ape")
+data(chiroptera)
+library("ggtree")
+gzoom(chiroptera, grep("Plecotus", chiroptera$tip.label))
+```
+
+## TREE MANIPULATION
+
+```{R}
+nwk <- system.file("extdata", "sample.nwk", package="treeio")
+tree <- read.tree(nwk)
+ggtree(tree)
+ggtree(tree) + geom_text2(aes(subset=!isTip, label=node), hjust=-.5) + geom_tiplab()
+```
+
+### View clade
+```{R}
+p <- ggtree(tree)
+viewClade(p+geom_tiplab(), node=21)
+```
+
+### Group clades 
+use internal node or vector of internal nodes to cluster clades
+```{R}
+tree <- groupClade(tree, .node=21)
+ggtree(tree, aes(color=group, linetype=group))
+#ggtree(tree, aes(color=group, linetype=group)) + geom_text2(aes(label=node))
+```
+
+### Highlight selected taxa
+```{R}
+tree <- groupClade(tree, .node=c(21, 17))
+ggtree(tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=(group==1)))
+#ggtree(tree, aes(color=group, linetype=group)) + geom_tiplab(aes(subset=(group==2)))
+# ggtree(tree, aes(color=group, linetype=group)) + geom_tiplab(aes(label=node))
+```
+
+### Collapse a clade 
+```{R}
+cp <- collapse(p, node=21)
+cp + geom_point2(aes(subset=(node == 21)), size=5, shape=23, fill="steelblue")
+```
+
+### Expand collapsed clade
+```{R}
+cp %>% expand(node=21)
+```
+
+```{R}
+p1 <- ggtree(tree)
+p2 <- collapse(p1, 21) + geom_point2(aes(subset=(node==21)), size=5, shape=23, fill="blue")
+p3 <- collapse(p2, 17) + geom_point2(aes(subset=(node==17)), size=5, shape=23, fill="red")
+p4 <- expand(p3, 17)
+p5 <- expand(p4, 21)
+
+library(cowplot)
+plot_grid(p1, p2, p3, p4, p5, ncol=5)
+
+```
+
+### Flip clades - should share a same parent
+```{R}
+plot_grid(p, flip(p, 17, 21), ncol=2)
+
+```
+
+### Rotate a circular tree
+```{R}
+for (angle in seq(0, 270, 30)) {
+  print(rotate_tree(p, angle) + ggtitle(paste("rotate angle:", angle)))
+}
+```
+
+## TREE ANNOTATION
+
+### Annotate a clade
+
+```{R}
+tree <- rtree(30)
+p <- ggtree(tree) + xlim(NA, 6)
+#print(p) + geom_text2(aes(label=node))
+p + geom_cladelabel(node=42, label="test label") +
+  geom_cladelabel(node=55, label="another clade")
+```
+
+### Adjust position
+
+Use align = TRUE, to align the clade label, and use the parameter, offset, to adjust the position.
+
+```{R}
+p + geom_cladelabel(node=42, label="test label", align=TRUE, offset=.3) +
+  geom_cladelabel(node=55, label="another clade", align=TRUE, offset=.3)
+```
+
+### change color
+```{R}
+p + geom_cladelabel(node=42, label="test label", align=T, color='red') +
+  geom_cladelabel(node=55, label="another clade", align=T, color='blue')
+```
+
+### change angle 
+```{R}
+p + geom_cladelabel(node=42, label="test label", align=T, angle=270, hjust='center', offset.text=.5) +
+  geom_cladelabel(node=55, label="another clade", align=T, angle=45)
+```
+
+### change the size of bar and text
+```{R}
+p + geom_cladelabel(node=42, label="test label", align=T, angle=270, hjust='center', offset.text=.5, barsize=1.5) +
+  geom_cladelabel(node=55, label="another clade", align=T, angle=45, fontsize=8)
+```
+
+### geom label can be used to label the text 
+```{R}
+p + geom_cladelabel(node=55, label="another clade", align=T, geom='label', fill='lightblue')
+```
+
+### annotate clades for unrooted trees using geom_clade2
+```{R}
+pg <- ggtree(tree, layout="daylight")
+pg + geom_cladelabel2(node=42, label="test label", angle=10) +
+  geom_cladelabel2(node=55, label="another clade", angle=305)
+```
+
+### Highlight clades
+```{R}
+ggtree(tree) + geom_hilight(node=21, fill="steelblue", alpha=.6) +
+  geom_hilight(node=54, fill="darkgreen", alpha=.6)
+```
+
+  For more details on ggtree, please refer to the webiste [http://bioconductor.org/packages/release/bioc/html/ggtree.html]
+  
+## THANK YOU
