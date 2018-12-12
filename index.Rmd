@@ -43,10 +43,22 @@ output:
 [Creating fake data sets to explore hypotheses](FakeDatasetHypoTest.html)
 
 ### Hw8
+[Structured Programming](StructuredFunctions.html)
+
+### Hw 9 & 10
+[For Loops and Randomization Test](LoopsRandomization.html)
+
+### Hw 11
+
 
 
 ### R code presentation
 [ggtree](ggtree.html)
+[Rmd file](ggtree.rmd)
+
+
+
+
 
 
 
