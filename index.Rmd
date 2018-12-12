@@ -24,7 +24,7 @@ output:
 * [My GitHub Repository](https://github.com/Surajuvm/BIO381_Suraj)
 
 ### Hw2
-[click here](Hw2_Hypothesis.html)
+[Hypothesis](Hw2_Hypothesis.html)
 
 
 ### Hw3
@@ -54,6 +54,7 @@ output:
 
 ### R code presentation
 [ggtree](ggtree.html)
+
 [Rmd file](ggtree.rmd)
 
 
