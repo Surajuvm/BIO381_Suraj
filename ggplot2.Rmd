@@ -1,0 +1,139 @@
+---
+title: "ggplot2"
+author: "Suraj Bhattarai"
+date: "December 12, 2018"
+output: html_document
+---
+## ggplot syntax
+
+ggplot(diamonds, aes(x=carat,y=price)) + geom_point()
+
+ 
+The basic concept of a ggplot graphic is to combine different elements into *layers*. Each layer of a ggplotgraphic must have a data set and aesthetic mappings
+
+* **data**: for **ggplot()**, this must be a data frame!
+* **aes**: a mapping from the data to the plot; basically the x and y-axes
+
+
+ggplot(diamonds, aes(x=carat,y=price)) + geom_point()
+
+Layers can also have: 
+
+* a  geom, or a geometric object: defines the overall look of the layer -- is it bars, points, or lines?
+
+* a  stat, or a statistical summary: how should the data be summarized (e.g., binning for histograms, or smoothing to draw regression lines, etc).
+* a position: how to handle overlapping points 
+
+When not specified, the defaults are used.
+
+ 
+We can use  **geom_boxplot** to create boxplots when one variable is continuous and the other is a factor. 
+
+```{r,}
+library(ggplot2)
+ggplot(diamonds, aes(x=cut,y=price)) + geom_boxplot()
+
+```
+
+
+We can control the aesthetics of each layer, e.g.  *colour*, *size*, *shape*, *alpha* (opacity) etc.
+
+```{r}
+ggplot(diamonds, aes(carat, price)) + geom_point(colour = "blue")
+```
+
+
+Changing the alpha level
+
+```{r}
+ggplot(diamonds, aes(x=carat,y=price)) + geom_point(alpha = 0.2)
+```
+
+
+Changing the point size
+
+```{r}
+ggplot(diamonds, aes(x=carat,y=price)) + geom_point(size = 0.2)
+
+```
+
+
+Changing the shape and the point size
+```{r}
+ggplot(diamonds, aes(x=carat,y=price)) + geom_point(shape = 2,size=0.4)
+```
+
+ 
+The real power of **ggplot** is its ability to combine layers
+```{r}
+ggplot(diamonds, aes(x=carat,y=price)) + geom_point(size = 0.2) +
+  geom_smooth()
+```
+
+
+In some cases, it may be more useful to get separate plots for each category of the third variable, to understand conditional relationships; using a facet wrap
+
+```{r}
+ggplot(diamonds, aes(carat, price)) + geom_point() +
+  facet_wrap(~color, ncol=4)
+```
+
+
+Alternatively, you can use **facet_grid**, which also allows more than 1 conditioning variable (tables of plots)
+```{r}
+ggplot(diamonds, aes(carat, price)) + geom_point() +
+ facet_grid(~color, labeller=label_both)
+```
+
+
+There are actually many ways to get the same plot! The following commands will produce the same plot:
+
+* ggplot(diamonds, aes(price, carat)) + geom_point()
+* ggplot() + geom_point(aes(price, carat), diamonds)
+* ggplot(diamonds) + geom_point(aes(price, carat))
+* ggplot(diamonds, aes(price)) + geom_point(aes(y = carat))
+* ggplot(diamonds, aes(y=carat)) + geom_point(aes(x = price))
+
+```{r}
+ggplot(diamonds) + geom_point(aes(price, carat))
+```
+
+We can summarize univariate distributions using **boxplots**
+
+```{r}
+ggplot(diamonds, aes(1, depth)) + geom_boxplot()
+```
+
+
+However, a *histogram* would be a better choice here
+```{r}
+ggplot(diamonds, aes(depth)) + geom_histogram()
+```
+
+Notice the difference in the **aes** call; **boxplot** is really designed for multiple categories!
+
+
+Tthe *default options* in **histogram** may not be sensible, and you often need to adjust the **binwidth** and **xlim**
+
+```{r}
+ggplot(diamonds, aes(depth)) + geom_histogram(binwidth=0.2) + xlim(56,67)
+```
+
+A better use of **boxplot** is when we want to compare distributions of a quantitative variable across categories of a factor variable, as previously discussed
+
+```{r}
+ggplot(diamonds, aes(cut, depth)) + geom_boxplot()
+```
+
+
+We can also get multiple histograms, though we need to either display them separately (less useful when comparing)
+```{r}
+ggplot(diamonds, aes(depth)) + geom_histogram(binwidth = 0.2) + 
+    facet_wrap(~cut) + xlim(56, 67)
+```
+
+Or, we can overlay the historgrams 
+```{r}
+ggplot(diamonds, aes(depth, fill=cut)) + 
+    geom_histogram(binwidth=0.2) + xlim(56,67)
+```

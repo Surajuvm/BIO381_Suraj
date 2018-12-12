@@ -49,7 +49,7 @@ output:
 [For Loops and Randomization Test](LoopsRandomization.html)
 
 ### Hw 11
-
+[Visualizing data in ggplot2](ggplot2.html)
 
 
 ### R code presentation
